@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Cancel Reservation{% endblock %}
+
+{% block content %}
+    <h2>Cancel Reservation</h2>
+    
+    <div class="reservation-details">
+        <h3>{{ reservation.service_name }}</h3>
+        <p><strong>Date:</strong> {{ reservation.date }}</p>
+        <p><strong>Time:</strong> {{ reservation.time }}</p>
+        <p><strong>Barber:</strong> {{ reservation.barber }}</p>
+    </div>
+
+    <form method="POST">
+        <p>Are you sure you want to cancel this reservation?</p>
+        <button type="submit" class="btn danger">Yes, Cancel Reservation</button>
+        <a href="{{ url_for('reservations') }}" class="btn">No, Go Back</a>
+    </form>
+{% endblock %}

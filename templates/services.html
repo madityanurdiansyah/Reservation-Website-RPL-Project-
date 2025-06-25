@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Our Services{% endblock %}
+
+{% block content %}
+    <h2>Our Services</h2>
+    <div class="services-list">
+        {% for service in services %}
+            <div class="service-card">
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description }}</p>
+                <div class="service-details">
+                    <span class="price">${{ service.price }}</span>
+                    <span class="duration">{{ service.duration }} min</span>
+                </div>
+                {% if 'user_id' in session %}
+                    <a href="{{ url_for('make_reservation', service_id=service.id) }}" class="btn">Book Now</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn">Login to Book</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

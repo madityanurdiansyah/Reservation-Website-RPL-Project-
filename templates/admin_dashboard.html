@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Admin Dashboard</h2>
+    
+    <section class="stats">
+        <div class="stat-card">
+            <h3>Total Reservations</h3>
+            <p>{{ stats.total_reservations }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Confirmed</h3>
+            <p>{{ stats.confirmed_reservations }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Cancelled</h3>
+            <p>{{ stats.cancelled_reservations }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <p>{{ stats.total_users }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Services</h3>
+            <p>{{ stats.total_services }}</p>
+        </div>
+    </section>
+
+    <section class="admin-actions">
+        <h3>Database Management</h3>
+        <div class="action-buttons">
+            <a href="{{ url_for('admin_delete', dataset='users') }}" class="btn danger">Clear Users</a>
+            <a href="{{ url_for('admin_delete', dataset='reservations') }}" class="btn danger">Clear Reservations</a>
+            <a href="{{ url_for('admin_delete', dataset='services') }}" class="btn danger">Clear Services</a>
+            <a href="{{ url_for('admin_delete', dataset='reviews') }}" class="btn danger">Clear Reviews</a>
+        </div>
+    </section>
+
+    <section class="recent-reservations">
+        <h3>Recent Reservations</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Barber</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for res in reservations %}
+                    <tr>
+                        <td>{{ res.id }}</td>
+                        <td>{{ res.username }}</td>
+                        <td>{{ res.service_name }}</td>
+                        <td>{{ res.date }}</td>
+                        <td>{{ res.time }}</td>
+                        <td>{{ res.barber }}</td>
+                        <td>{{ res.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

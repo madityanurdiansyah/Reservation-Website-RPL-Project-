@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Make Reservation{% endblock %}
+
+{% block content %}
+    <h2>Make a Reservation</h2>
+    <form method="POST" class="reservation-form">
+        <div class="form-group">
+            <label for="service_id">Service</label>
+            <select id="service_id" name="service_id" required>
+                {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.name }} - ${{ service.price }} ({{ service.duration }} min)</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required min="{{ now }}">
+        </div>
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input type="time" id="time" name="time" required min="09:00" max="18:00">
+        </div>
+        <div class="form-group">
+            <label for="barber">Preferred Barber</label>
+            <select id="barber" name="barber" required>
+                {% for barber in barbers %}
+                    <option>{{ barber }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn">Confirm Reservation</button>
+    </form>
+{% endblock %}

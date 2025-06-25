@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h2>Professional Barber Services</h2>
+        <p>Book your appointment today and experience the best haircut in town</p>
+        {% if 'user_id' not in session %}
+            <a href="{{ url_for('register') }}" class="btn">Register Now</a>
+        {% else %}
+            <a href="{{ url_for('make_reservation') }}" class="btn">Book Now</a>
+        {% endif %}
+    </section>
+
+    <section class="services-preview">
+        <h2>Our Popular Services</h2>
+        <div class="services-grid">
+            {% for service in services %}
+                <div class="service-card">
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.description }}</p>
+                    <p class="price">${{ service.price }}</p>
+                    <a href="{{ url_for('make_reservation') }}" class="btn">Book Now</a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="reviews-grid">
+            {% for review in reviews %}
+                <div class="review-card">
+                    <div class="rating">{% for _ in range(review.rating|int) %}★{% endfor %}</div>
+                    <p>"{{ review.comment }}"</p>
+                    <p class="author">- {{ review.user_id }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

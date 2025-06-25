@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block content %}
+    <h2>My Reservations</h2>
+    <a href="{{ url_for('make_reservation') }}" class="btn">Make New Reservation</a>
+    
+    {% if reservations %}
+        <div class="reservations-list">
+            {% for res in reservations %}
+                <div class="reservation-card {% if res.status == 'cancelled' %}cancelled{% endif %}">
+                    <h3>{{ res.service_name }}</h3>
+                    <div class="reservation-details">
+                        <p><strong>Date:</strong> {{ res.date }}</p>
+                        <p><strong>Time:</strong> {{ res.time }}</p>
+                        <p><strong>Barber:</strong> {{ res.barber }}</p>
+                        <p><strong>Status:</strong> {{ res.status|capitalize }}</p>
+                    </div>
+                    {% if res.status == 'confirmed' %}
+                        <a href="{{ url_for('cancel_reservation', reservation_id=res.id) }}" class="btn danger">Cancel</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You don't have any reservations yet.</p>
+    {% endif %}
+{% endblock %}
